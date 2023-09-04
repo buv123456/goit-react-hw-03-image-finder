@@ -1,6 +1,5 @@
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Component } from 'react';
-import * as basicLightbox from 'basiclightbox';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
