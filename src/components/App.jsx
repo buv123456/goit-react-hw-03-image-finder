@@ -10,7 +10,6 @@ export class App extends Component {
   state = {
     query: '',
     images: [],
-    addImages: false,
     total: 0,
     page: 1,
     perPage: 12,
@@ -23,7 +22,7 @@ export class App extends Component {
 
   componentDidUpdate(pProps, { query, page }) {
     if (query !== this.state.query || page !== this.state.page) {
-      this.getFetch(this.state.query, this.state.page, this.state.addImages);
+      this.getFetch(this.state.query, this.state.page);
       save('query', this.state.query);
     }
   }
@@ -32,7 +31,7 @@ export class App extends Component {
     e.preventDefault();
     const query = `${Date.now()}/${e.target.query.value.trim()}`;
     if (query !== this.state.query) {
-      this.setState({ query, page: 1, addImages: false });
+      this.setState({ query, page: 1, images: [] });
     }
   };
 
@@ -43,19 +42,14 @@ export class App extends Component {
     }));
   };
 
-  getFetch = async (query, page, add) => {
+  getFetch = async (query, page) => {
     const toastId = toast.loading('Loading...');
     const options = { params: { q: query.slice(14), page } };
+
     try {
       const { hits, totalHits } = await fetchImages(options);
       if (this.total !== totalHits) this.setState({ total: totalHits });
-
-      add
-        ? this.setState(prev => ({
-            images: [...prev.images, ...hits],
-          }))
-        : this.setState({ images: hits });
-
+      this.setState(prev => ({ images: [...prev.images, ...hits] }));
       toast.success('Data comes. All is OK.', {
         id: toastId,
         duration: 4000,
