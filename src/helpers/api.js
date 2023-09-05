@@ -10,6 +10,5 @@ axios.defaults.params = {
 
 export const fetchImages = async params => {
   const { data } = await axios(params);
-  console.log(data);
   return data;
 };

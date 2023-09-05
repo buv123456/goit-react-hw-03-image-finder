@@ -1,12 +1,14 @@
-export function ImageGalleryItem({ image, handleModal }) {
+import { ImgItemStyled, ItemStyled } from './ImageGalleryItemStyled';
+
+export function ImageGalleryItem({ image, handleModalOpen }) {
   const { webformatURL, tags, largeImageURL } = image;
   return (
-    <li>
-      <img
+    <ItemStyled>
+      <ImgItemStyled
         src={webformatURL}
         alt={tags}
-        onClick={() => handleModal(largeImageURL)}
+        onClick={() => handleModalOpen(largeImageURL, tags)}
       />
-    </li>
+    </ItemStyled>
   );
 }
