@@ -61,9 +61,10 @@ export class App extends Component {
         duration: 4000,
       });
     } catch (error) {
-      toast.error('Something goes wrong. Reload page');
-    } finally {
-      toast.dismiss(toastId);
+      toast.error('Something goes wrong. Reload page', {
+        id: toastId,
+        duration: 4000,
+      });
     }
   };
 
