@@ -63,7 +63,7 @@ export class App extends Component {
     } catch (error) {
       toast.error('Something goes wrong. Reload page');
     } finally {
-      toast.dismiss(toastId());
+      toast.dismiss(toastId);
     }
   };
 
