@@ -54,10 +54,15 @@ export class App extends Component {
       if (!hits.length) {
         toast('There are no images for your request', toastIdOptions);
       } else {
-        toast.success('Data comes. All is OK.', toastIdOptions);
         this.setState(prev => ({
           images: [...prev.images, ...hits],
         }));
+        toast.success(
+          `${
+            hits.length + this.state.images.length
+          } from ${totalHits} images comes. All is OK.`,
+          toastIdOptions
+        );
         if (this.total !== totalHits) this.setState({ total: totalHits });
       }
     } catch (error) {
