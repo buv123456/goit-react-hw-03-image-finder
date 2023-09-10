@@ -1,11 +1,31 @@
-import { ModalImgStyled, ModalStyled, ModalWrapStyled } from './Modal.Styled';
+import { Component } from 'react';
+import { ModalStyled, ModalWrapStyled } from './Modal.Styled';
+import { createPortal } from 'react-dom';
 
-export function Modal({ imageURL, tag, onClose }) {
-  return (
-    <ModalWrapStyled onClick={e => onClose(e)}>
-      <ModalStyled>
-        <ModalImgStyled name="img" src={imageURL} alt={tag} />
-      </ModalStyled>
-    </ModalWrapStyled>
-  );
+const modalRoot = document.querySelector('#modal-root');
+
+export class Modal extends Component {
+  componentDidMount() {
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', this.handleClose);
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'auto';
+    window.removeEventListener('keydown', this.handleClose);
+  }
+
+  handleClose = e => {
+    if (e.target === e.currentTarget || e.code === 'Escape')
+      this.props.onClose();
+  };
+
+  render() {
+    return createPortal(
+      <ModalWrapStyled onClick={this.handleClose}>
+        <ModalStyled>{this.props.children}</ModalStyled>
+      </ModalWrapStyled>,
+      modalRoot
+    );
+  }
 }

@@ -14,12 +14,6 @@ export const ModalWrapStyled = styled.div`
 
 export const ModalStyled = styled.div`
   max-width: 80%;
-  height: 80%;
+  height: 90%;
   overflow: hidden;
-`;
-
-export const ModalImgStyled = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 `;

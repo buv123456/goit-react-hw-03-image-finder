@@ -1,20 +1,24 @@
-import { SearchbarStyled } from './SearchbarStyled';
+import {
+  BiSearchStyled,
+  ButtonSearchStyled,
+  InputStyled,
+  SearchbarStyled,
+} from './SearchbarStyled';
 
-export const Searchbar = ({ onSubmit, query }) => {
+export const Searchbar = ({ onSubmit }) => {
   return (
     <SearchbarStyled>
       <form onSubmit={e => onSubmit(e)}>
-        <button type="submit">
-          <span>Search</span>
-        </button>
-
-        <input
+        <ButtonSearchStyled type="submit">
+          <BiSearchStyled />
+        </ButtonSearchStyled>
+        <InputStyled
           name="query"
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder={query || 'Search images and photos'}
-        />
+          placeholder="Search images and photos"
+        ></InputStyled>
       </form>
     </SearchbarStyled>
   );

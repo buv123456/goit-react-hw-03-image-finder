@@ -4,7 +4,6 @@ import { Toaster, toast } from 'react-hot-toast';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { fetchImages } from 'helpers/api';
-import { load, save } from 'helpers/storage';
 
 export class App extends Component {
   state = {
@@ -15,21 +14,22 @@ export class App extends Component {
     perPage: 12,
   };
 
-  componentDidMount() {
-    const query = load('query');
-    if (query) this.setState({ query });
-  }
-
   componentDidUpdate(pProps, { query, page }) {
     if (query !== this.state.query || page !== this.state.page) {
-      this.getFetch(this.state.query, this.state.page);
-      save('query', this.state.query);
+      const { query, page, perPage } = this.state;
+      this.getFetch(query, page, perPage);
     }
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    const query = `${Date.now()}/${e.target.query.value.trim()}`;
+    const newQuery = e.target.query.value.trim();
+    if (!newQuery) {
+      toast.error('There is no request');
+      return;
+    }
+    const query = `${Date.now()}/${newQuery}`;
+
     if (query !== this.state.query) {
       this.setState({ query, page: 1, images: [] });
     }
@@ -38,27 +38,30 @@ export class App extends Component {
   handleLoadMore = () => {
     this.setState(prev => ({
       page: prev.page + 1,
-      addImages: true,
     }));
   };
 
-  getFetch = async (query, page) => {
+  getFetch = async (query, page, per_page) => {
     const toastId = toast.loading('Loading...');
-    const options = { params: { q: query.slice(14), page } };
+    const toastIdOptions = {
+      id: toastId,
+      duration: 3000,
+    };
+    const options = { params: { q: query.slice(14), page, per_page } };
 
     try {
       const { hits, totalHits } = await fetchImages(options);
-      if (this.total !== totalHits) this.setState({ total: totalHits });
-      this.setState(prev => ({ images: [...prev.images, ...hits] }));
-      toast.success('Data comes. All is OK.', {
-        id: toastId,
-        duration: 4000,
-      });
+      if (!hits.length) {
+        toast('There are no images for your request', toastIdOptions);
+      } else {
+        toast.success('Data comes. All is OK.', toastIdOptions);
+        this.setState(prev => ({
+          images: [...prev.images, ...hits],
+        }));
+        if (this.total !== totalHits) this.setState({ total: totalHits });
+      }
     } catch (error) {
-      toast.error('Something goes wrong. Reload page', {
-        id: toastId,
-        duration: 4000,
-      });
+      toast.error('Something goes wrong. Reload page', toastIdOptions);
     }
   };
 

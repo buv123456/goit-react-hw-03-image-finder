@@ -8,3 +8,9 @@ export const ImageGalleryStyled = styled.ul`
   margin-top: 50px;
   padding: 10px;
 `;
+
+export const ModalImgStyled = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+`;

@@ -1,7 +1,11 @@
+import { ButtonStyled, ButtonWrapStyled } from './ButtonStyled';
+
 export function Button({ onClick }) {
   return (
-    <button type="button" onClick={() => onClick()}>
-      Load more...
-    </button>
+    <ButtonWrapStyled>
+      <ButtonStyled type="button" onClick={() => onClick()}>
+        Load more
+      </ButtonStyled>
+    </ButtonWrapStyled>
   );
 }
