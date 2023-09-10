@@ -7,13 +7,14 @@ export const ModalWrapStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
   top: 0;
   left: 0;
   background-color: #000000a9;
 `;
 
 export const ModalStyled = styled.div`
-  max-width: 80%;
-  height: 90%;
+  max-width: 90%;
+  display: contents;
   overflow: hidden;
 `;

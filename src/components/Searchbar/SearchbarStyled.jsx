@@ -6,7 +6,6 @@ export const SearchbarStyled = styled.header`
   top: 0;
   width: 100%;
   height: 50px;
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,8 +15,7 @@ export const SearchbarStyled = styled.header`
 
 export const InputStyled = styled.input`
   font-size: 20px;
-  max-width: 400px;
-  /* height: 100%; */
+  width: 300px;
   padding: 4px 4px 4px 38px;
   border: none;
   border-radius: 5px;
@@ -25,10 +23,7 @@ export const InputStyled = styled.input`
 `;
 
 export const ButtonSearchStyled = styled.button`
-  /* height: 100%; */
-
   position: absolute;
-  /* top: 50%; */
   padding: 4px 0 0 4px;
   background-color: transparent;
   cursor: pointer;

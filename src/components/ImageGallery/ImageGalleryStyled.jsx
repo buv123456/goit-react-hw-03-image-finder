@@ -10,7 +10,5 @@ export const ImageGalleryStyled = styled.ul`
 `;
 
 export const ModalImgStyled = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  max-height: 100%;
 `;

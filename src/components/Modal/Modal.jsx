@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ModalStyled, ModalWrapStyled } from './Modal.Styled';
+import { ModalStyled, ModalWrapStyled } from './ModalStyled';
 import { createPortal } from 'react-dom';
 
 const modalRoot = document.querySelector('#modal-root');
